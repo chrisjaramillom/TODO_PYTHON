@@ -54,38 +54,3 @@ while True:
     print("**********************")
 
 print("Fin del programa")
-# ¿Qué hace este programa?
-# Este programa permite agregar productos a un archivo CSV llamado productos.csv.
-# El programa solicita al usuario ingresar el nombre, categoría y precio de un producto.
-# Si el precio es un número válido, el producto se agrega al archivo CSV.
-# El contenido del archivo se muestra después de agregar cada producto.
-# El programa termina cuando el usuario ingresa 'salir' como nombre del producto.
-# ¿Qué hace la clase RegistroProductos?
-# La clase RegistroProductos se encarga de gestionar los productos en un archivo CSV.
-# Al crear una instancia de esta clase, se crea el archivo CSV si no existe.
-# La clase tiene un método agregar_producto para agregar productos al archivo.
-# El método mostrar_contenido muestra el contenido actual del archivo CSV.
-# ¿Qué hace el método crear_archivo?
-# El método crear_archivo crea el archivo CSV si no existe.
-# Asegura que los encabezados del archivo estén presentes.
-# ¿Qué hace el método agregar_producto?
-# El método agregar_producto agrega un producto al archivo CSV.
-# Verifica que el precio ingresado sea un número válido.
-# ¿Qué hace el método mostrar_contenido?
-# El método mostrar_contenido muestra el contenido del archivo CSV.
-# Lee el archivo y muestra cada fila en la consola.
-# ¿Qué hace el bucle while en el programa principal?
-# El bucle while solicita al usuario ingresar productos.
-# Cada producto se agrega al archivo CSV utilizando el método agregar_producto.
-# Muestra el contenido actualizado del archivo después de agregar cada producto.
-# ¿Qué hace el programa cuando el usuario ingresa 'salir'?
-# El programa finaliza y muestra "Fin del programa" en la consola.
-# ¿Qué mejoras harías a este programa?
-# Podrías agregar validaciones adicionales, como verificar que el precio sea mayor que cero.
-# Podrías permitir al usuario editar o eliminar productos del archivo CSV.
-# Podrías agregar opciones de búsqueda y filtrado de productos.
-# Podrías mejorar la presentación del contenido del archivo en la consola.
-# Podrías manejar excepciones específicas para errores de lectura y escritura de archivos.
-# Podrías agregar funciones para calcular estadísticas sobre los productos.
-# Podrías permitir al usuario ingresar múltiples productos en una sola entrada.
-    
