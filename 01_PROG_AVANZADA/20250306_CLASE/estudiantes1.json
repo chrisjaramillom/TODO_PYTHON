@@ -1,0 +1,22 @@
+[
+    {
+        "nombre": "Chris",
+        "edad": "49",
+        "carrera": "Sw"
+    },
+    {
+        "nombre": "Luis",
+        "edad": "23",
+        "carrera": "Ing."
+    },
+    {
+        "nombre": "Giu",
+        "edad": "12",
+        "carrera": "Primaria"
+    },
+    {
+        "nombre": "terminar",
+        "edad": "salir",
+        "carrera": "sdf"
+    }
+]
