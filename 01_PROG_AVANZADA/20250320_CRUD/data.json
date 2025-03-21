@@ -1,0 +1,22 @@
+[
+    {
+        "CI": "1234567890",
+        "nombre": "Chris",
+        "apellido": "Jara"
+    },
+    {
+        "CI": "1111111111",
+        "nombre": "Otro",
+        "apellido": "Otro"
+    },
+    {
+        "CI": "2",
+        "nombre": "2",
+        "apellido": "2"
+    },
+    {
+        "CI": "3",
+        "nombre": "3",
+        "apellido": "3"
+    }
+]
