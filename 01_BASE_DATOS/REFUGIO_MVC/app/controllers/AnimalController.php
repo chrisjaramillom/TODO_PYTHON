@@ -1,6 +1,12 @@
 <?php
 require_once "../app/models/Animal.php";
 
+session_start();
+if (!isset($_SESSION['usuario'])) {
+    header("Location: /refugio_mvc/public/auth/login");
+    exit();
+}
+
 class AnimalController
 {
     private $model;
