@@ -11,14 +11,6 @@ class Animal
         $this->conn = $db->connect();
     }
 
-    // Obtener todos los animales
-    public function getAll()
-    {
-        $query = "SELECT * FROM Animal WHERE ani_estado = TRUE";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute();
-        return $stmt->fetchAll();
-    }
 
     // Obtener un animal por ID
     public function getById($id)
@@ -73,5 +65,12 @@ class Animal
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();
+    }
+
+
+    public function getAll()
+    {
+        $stmt = $this->conn->query("SELECT ani_id, ani_nombre, ani_especie, ani_raza, ani_fecha_ingreso FROM Animal WHERE ani_estado = 1");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

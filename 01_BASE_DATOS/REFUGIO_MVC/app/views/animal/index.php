@@ -1,3 +1,5 @@
+<?php require_once "../app/views/partials/menu.php"; ?>
+
 <!DOCTYPE html>
 <html lang="es">
 

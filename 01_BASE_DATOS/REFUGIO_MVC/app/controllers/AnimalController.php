@@ -1,11 +1,14 @@
 <?php
+require_once "../app/config/config.php";
+require_once APPROOT . "/helper/auth_helper.php";
+//require_once APPROOT . "/helpers/redirect_helper.php";
+//require_once APPROOT . "/helpers/validation_helper.php";
+
 require_once "../app/models/Animal.php";
 
 session_start();
-if (!isset($_SESSION['usuario'])) {
-    header("Location: /refugio_mvc/public/auth/login");
-    exit();
-}
+verificarRol(['Administrador', 'Cuidador']);
+
 
 class AnimalController
 {

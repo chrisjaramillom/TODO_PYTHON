@@ -24,4 +24,34 @@ class Usuario
         }
         return false;
     }
+
+    public function crear($nombre, $email, $password, $rol)
+    {
+        $sql = "INSERT INTO Usuario (usr_nombre, usr_email, usr_password, usr_rol, usr_estado)
+            VALUES (:nombre, :email, :password, :rol, 1)";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':nombre', $nombre);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':password', $password);
+        $stmt->bindParam(':rol', $rol);
+
+        return $stmt->execute();
+    }
+
+
+    public function getAll()
+    {
+        $stmt = $this->conn->query("SELECT * FROM Usuario");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function existeEmail($email)
+    {
+        $sql = "SELECT COUNT(*) FROM Usuario WHERE usr_email = :email";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        return $stmt->fetchColumn() > 0;
+    }
 }
