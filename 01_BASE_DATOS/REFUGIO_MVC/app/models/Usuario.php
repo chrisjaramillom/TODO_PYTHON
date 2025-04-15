@@ -54,4 +54,12 @@ class Usuario
         $stmt->execute();
         return $stmt->fetchColumn() > 0;
     }
+
+    public function delete($id)
+    {
+        $sql = "UPDATE Usuario SET usr_estado = 0 WHERE usr_id = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        return $stmt->execute();
+    }
 }

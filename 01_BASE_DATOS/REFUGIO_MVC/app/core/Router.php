@@ -30,3 +30,10 @@ class Router
         }
     }
 }
+
+// RUTA ADICIONAL PARA ANIMALES MÁS ATENDIDOS
+// Accede vía: /refugio_mvc/public/estadisticas/animalesmasatendidos
+
+$routes = [
+    'estadisticas/animalesmasatendidos' => ['EstadisticasController', 'animalesMasAtendidos']
+];

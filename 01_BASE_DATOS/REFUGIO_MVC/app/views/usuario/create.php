@@ -49,7 +49,7 @@
                 <select name="rol" class="form-select" required>
                     <option value="">-- Seleccione un rol --</option>
                     <option value="Cuidador">Cuidador</option>
-                    <option value="Doctor">Doctor</option>
+                    <option value="Medico">Medico</option>
                     <option value="Administrador">Administrador</option>
                 </select>
             </div>

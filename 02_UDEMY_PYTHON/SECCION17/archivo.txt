@@ -1,0 +1,4 @@
+Hola, soy un archivo de texto.
+Este es un archivo de texto.
+SEGUNDA CORRIDA!!!.
+Este ó es un archivo de texto.

@@ -1,10 +1,8 @@
 <?php
-require_once "../app/config/config.php";
-require_once APPROOT . "/helper/auth_helper.php";
-require_once "../app/models/Diagnostico.php";
-
-session_start();
-verificarRol(['Administrador', 'Doctor']);
+require_once "../app/helper/auth_helper.php";
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 class DiagnosticoController
 {
@@ -12,36 +10,52 @@ class DiagnosticoController
 
     public function __construct()
     {
+        require_once "../app/models/Diagnostico.php";
         $this->model = new Diagnostico();
     }
 
-    public function index($atm_id)
+    public function index()
     {
-        $diagnosticos = $this->model->getByAtencion($atm_id);
+        verificarPermisos('Diagnóstico', ['Administrador', 'Médico', 'Cuidador']);
+        $diagnosticos = $this->model->getAll();
         require "../app/views/diagnostico/index.php";
     }
 
-    public function store($atm_id)
+    public function show($id)
     {
-        if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            $enfermedad = $_POST["enfermedad"];
-            $sintomas = $_POST["sintomas"];
-            $tratamiento = $_POST["tratamiento"];
-            $medicamentos = $_POST["medicamentos"];
+        verificarPermisos('Diagnóstico', ['Administrador', 'Médico', 'Cuidador']);
+        $diagnostico = $this->model->getById($id);
+        require "../app/views/diagnostico/show.php";
+    }
 
-            $this->model->create($atm_id, $enfermedad, $sintomas, $tratamiento, $medicamentos);
-            header("Location: /refugio_mvc/public/diagnostico/index/$atm_id");
+    public function create()
+    {
+        verificarPermisos('Diagnóstico', ['Administrador', 'Médico']);
+        require "../app/views/diagnostico/create.php";
+    }
+
+    public function store()
+    {
+        verificarPermisos('Diagnóstico', ['Administrador', 'Médico']);
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $enfermedad = $_POST['enfermedad'];
+            $sintomas = $_POST['sintomas'];
+            $tratamiento = $_POST['tratamiento'];
+            $medicamentos = $_POST['medicamentos'];
+            $atm_id = $_POST['atm_id'];
+
+            $this->model->create($enfermedad, $sintomas, $tratamiento, $medicamentos, $atm_id);
+            header("Location: /refugio_mvc/public/diagnostico/index");
             exit();
-        } else {
-            require "../app/views/diagnostico/create.php";
         }
     }
 
     public function delete($id)
     {
+        verificarPermisos('Diagnóstico', ['Administrador', 'Médico']);
         $this->model->delete($id);
-        // Lo ideal sería redirigir a la atención correspondiente
-        header("Location: /refugio_mvc/public/atencionmedica/index");
+        header("Location: /refugio_mvc/public/diagnostico/index");
         exit();
     }
 }

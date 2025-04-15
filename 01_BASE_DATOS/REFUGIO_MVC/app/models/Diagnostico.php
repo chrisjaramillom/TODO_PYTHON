@@ -49,4 +49,12 @@ class Diagnostico
         $stmt->bindParam(':id', $id);
         return $stmt->execute();
     }
+
+    public function getAll()
+    {
+        $sql = "SELECT * FROM Diagnostico WHERE diag_estado = 1";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

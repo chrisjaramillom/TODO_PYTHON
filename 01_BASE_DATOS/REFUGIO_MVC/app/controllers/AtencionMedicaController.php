@@ -1,11 +1,6 @@
 <?php
-require_once "../app/config/config.php";
-require_once APPROOT . "/helper/auth_helper.php";
-require_once "../app/models/AtencionMedica.php";
-require_once "../app/config/database.php";
-
+require_once "../app/helper/auth_helper.php";
 session_start();
-verificarRol(['Administrador', 'Doctor']);
 
 class AtencionMedicaController
 {
@@ -14,6 +9,9 @@ class AtencionMedicaController
 
     public function __construct()
     {
+        require_once "../app/models/AtencionMedica.php";
+        require_once "../app/models/Animal.php";
+        require_once "../app/models/Doctor.php";
         $db = new Database();
         $this->conn = $db->connect();
         $this->model = new AtencionMedica();
@@ -21,20 +19,33 @@ class AtencionMedicaController
 
     public function index()
     {
+        verificarPermisos('Atención Médica', ['Administrador', 'Médico', 'Cuidador']);
         $atenciones = $this->model->getAll();
         require "../app/views/atencion/index.php";
     }
 
     public function show($id)
     {
+        verificarPermisos('Atención Médica', ['Administrador', 'Médico', 'Cuidador']);
         $atencion = $this->model->getById($id);
         require "../app/views/atencion/show.php";
     }
 
+    public function create()
+    {
+        verificarPermisos('Atención Médica', ['Administrador', 'Médico']);
+        $animalModel = new Animal();
+        $doctorModel = new Doctor();
+        $animales = $animalModel->getAll();
+        $doctores = $doctorModel->getAll();
+        require "../app/views/atencion/create.php";
+    }
+
     public function store()
     {
+        verificarPermisos('Atención Médica', ['Administrador', 'Médico']);
+
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            // 1. Insertar la atención médica
             $motivo = $_POST["motivo"];
             $detalles = $_POST["detalles"];
             $ani_id = $_POST["ani_id"];
@@ -51,10 +62,8 @@ class AtencionMedicaController
             $stmt->bindParam(':fecha', $fecha);
             $stmt->execute();
 
-            // 2. Obtener ID de la atención insertada
             $atm_id = $this->conn->lastInsertId();
 
-            // 3. Insertar diagnósticos asociados
             if (!empty($_POST['diagnosticos'])) {
                 $diagnosticos = $_POST['diagnosticos'];
 
@@ -75,22 +84,13 @@ class AtencionMedicaController
             header("Location: /refugio_mvc/public/atencionmedica/index");
             exit();
         } else {
-            require_once "../app/models/Animal.php";
-            require_once "../app/models/Doctor.php";
-
-            $animalModel = new Animal();
-            $doctorModel = new Doctor();
-
-            $animales = $animalModel->getAll();
-            $doctores = $doctorModel->getAll();
-
-            require "../app/views/atencion/create.php";
+            $this->create();
         }
     }
 
-
     public function delete($id)
     {
+        verificarPermisos('Atención Médica', ['Administrador', 'Médico']);
         $this->model->delete($id);
         header("Location: /refugio_mvc/public/atencionmedica/index");
         exit();

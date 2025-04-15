@@ -1,6 +1,8 @@
 <?php
 require_once "../app/models/Usuario.php";
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 class AuthController
 {
